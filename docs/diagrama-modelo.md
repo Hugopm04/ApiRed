@@ -7,10 +7,7 @@ classDiagram
     class Clima {
         <<Entidad>>
         -coordenada Coordenada
-        -registroMeteorologico Map~time.Time, Meteorologia~
-        +NuevoClima(coord Coordenada) Clima
-        +AgregarMeteorologia(meteorologia Meteorologia) error
-        +ModificarMeteorologia(fecha, agua, temperaturaMin, temperaturaMax) error
+        -registroMeteorologico map~time.Time, Meteorologia~
     }
 
     class Meteorologia {
@@ -19,23 +16,17 @@ classDiagram
         -aguaLlovida float64
         -temperaturaMin float64
         -temperaturaMax float64
-        +NuevaMeteorologia(fecha, agua, tempMin, tempMax) Meteorologia, error
-        +NormalizarFecha(fecha time.Time) time.Time
     }
 
     class Coordenada {
         <<Objeto valor>>
         -latitudY float64
         -longitudX float64
-        +NuevaCoordenada(lY, lX float64) Coordenada, error
     }
 
     class Flora {
         <<Registro>>
-        -flores Map~string, Flor~
-        +NuevaFlora() Flora
-        +AgregarFlor(flor Flor) error
-        +ModificarFlor(nombre, agua, temperatura) error
+        -flores map~string, Flor~
     }
 
     class Flor {
@@ -43,13 +34,23 @@ classDiagram
         -nombre string
         -aguaIdeal float64
         -temperaturaIdeal float64
-        +NuevaFlor(nombre string, agua, temperatura float64) Flor, error
     }
 
     Clima *-- Coordenada : identifica
     Clima *-- "0..*" Meteorologia : indexada por fecha
     Flora *-- "0..*" Flor : indexada por nombre
 ```
+
+## Constructores del paquete `modelo`
+
+| Función | Firma |
+|---|---|
+| `NuevaCoordenada` | `(lY, lX float64) (Coordenada, error)` |
+| `NuevaFlor` | `(nombreIntroducido string, agua, temperatura float64) (Flor, error)` |
+| `NuevaMeteorologia` | `(fechaIntroducida time.Time, agua, tempMin, tempMax float64) (Meteorologia, error)` |
+| `NuevoClima` | `(coord Coordenada) Clima` |
+| `NuevaFlora` | `() *Flora` |
+| `NormalizarFecha` | `(fecha time.Time) time.Time` |
 
 ## Invariantes comprobadas en los constructores
 
@@ -58,5 +59,5 @@ classDiagram
 | `Coordenada` | `latitudY` en `[-90, 90]`; `longitudX` en `[-180, 180]` |
 | `Flor` | `nombre` no vacío; `aguaIdeal > 0`; `temperaturaIdeal` en `[-50, 60]` |
 | `Meteorologia` | `aguaLlovida >= 0`; `temperaturaMin <= temperaturaMax`; `temperaturaMin >= -273.15` |
-| `Clima` | no se admiten dos meteorologías con la misma fecha |
-| `Flora` | no se admiten dos flores con el mismo nombre |
+| `Clima` | ninguna; la unicidad de la fecha la garantiza la clave del `map` |
+| `Flora` | ninguna; la unicidad del nombre la garantiza la clave del `map` |
