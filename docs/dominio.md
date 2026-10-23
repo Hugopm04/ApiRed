@@ -1,5 +1,7 @@
 # Dominio del Problema
 
+_Esto es un documento de planificación usado como medio para alcanzar el Objetivo 2, **NO ES DOCUMENTACIÓN DEL PROYECTO**, y debe eliminarse una vez quede superado dicho objetivo.
+
 Documento en el que se extrae el lenguaje ubicuo del problema narrado por la [HU001](historias-usuario.md#hu001-no-sé-si-un-campo-tiene-las-condiciones-climáticas-adecuadas-antes-de-trasladar-mis-colmenas) con ayuda del _[journey](user-journeys.md#jornada-1-manuel-comprueba-la-viabilidad-del-terreno-antes-de-trasladar-el-colmenar)_.
 
 ## Índice
